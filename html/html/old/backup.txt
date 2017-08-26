@@ -1,0 +1,283 @@
+square
+	http://2ality.com/2011/10/html-square-root.html
+	
+square root
+	http://www.scientificpsychic.com/etc/square-root.html
+	
+	
+	
+var geefvraag;
+var username;
+var level;
+var seconds;
+var fouten;
+var email;
+var vraag = [];
+var antw1 = []; 
+var antw2 = [];
+var b,c,d,e; <!--coefficienten-->
+var vraagnr = 0;
+
+<!--vul de array met vragen-->
+function makeVraag(level){
+	var length;
+	var b,c,b2,c2;
+	var res;
+	for (var i=0;i<20;i++){
+	  if(level == 1){
+	     vraagnr = i;
+	     d = Math.floor(Math.random()*14-5);
+	     e = Math.floor(Math.random()*14-5);
+	     b = d+e;
+	     c = d*e;
+    	 if (d+e>0){
+    	     b2 = "+"+b;
+    	 }
+    	 else{
+    	     b2 = b;
+    	 }
+    	 if (d*e>0){
+    	     c2 = "+"+c;
+    	 }
+    	 else{
+    	     c2 = c;
+    	 }
+	     if (d==0 && e==0){
+	         d=10;
+	         e=10;
+	         b=20;
+	         c=100;
+	     }
+	     if (d == d+e || e==d+e){
+	         var k;
+	         k = d+e
+	         vraag[vraagnr] = "x<sup>2</sup>"+d+e+"x";
+	         antw1[vraagnr] = "x(x+"+k+")";
+	         antw2[vraagnr] = "x("+k+"x)";
+	     }
+	     if (d == -e){
+	         vraag[vraagnr] = "x<sup>2</sup>"+c;
+	         antw1[vraagnr] = "(x+"+Math.abs(d)+")(x-"+Math.abs(e)+")";
+	         antw2[vraagnr] = "(x-"+Math.abs(d)+")(x+"+Math.abs(e)+")";
+	     }
+		 if (d == e){
+	         if (d < 0){
+	            vraag[vraagnr] = "x<sup>2</sup>"+ b2 + "x"+c2;
+	            antw1[vraagnr] = "(x-"+d+")<sup>2</sup>";
+	            antw2[vraagnr] = "(x-"+d+")<sup>2</sup>";
+	         }
+	         else{ 
+	            vraag[vraagnr] = "x<sup>2</sup>+"+ b + "x"+c;
+	            antw1[vraagnr] = "(x+"+d+")<sup>2</sup>";
+	            antw2[vraagnr] = "(x+"+d+")<sup>2</sup>"; 
+	         }      
+	     }
+	     if (d!=e){
+	        if (b<0 && c<0){
+	            vraag[vraagnr] = "x<sup>2</sup>"+ b + "x"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b<0 && c>0){
+	            vraag[vraagnr] = "x<sup>2</sup>"+ b + "x+"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b>0 && c<0){
+	            vraag[vraagnr] = "x<sup>2</sup>+"+ b + "x"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b>0 && c>0){
+	            vraag[vraagnr] = "x<sup>2</sup>+"+ b + "x+"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b==1 && c>0){
+	            vraag[vraagnr] = "x<sup>2</sup>+x+"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b==1 && c<0){
+	            vraag[vraagnr] = "x<sup>2</sup>+x"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	         if (b==-1 && c>0){
+	            vraag[vraagnr] = "x<sup>2</sup>-x+"+c;
+	           antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        if (b==-1 && c<0){
+	            vraag[vraagnr] = "x<sup>2</sup>-x"+c;
+	            antw1[vraagnr] = "(x"+d+")(x"+e+")";
+	            antw2[vraagnr] = "(x"+e+")(x"+d+")";
+	        }
+	        
+	    } <!--end laatste if-->
+	  }
+	  else if(level == 2){
+		length=20;
+	  }
+	  else if(level == 3){
+		length=20;
+	  }
+	}  <!--end for-->	
+	return vraag;
+}  <!--end makeVraag-->
+<!--Voer je naam in-->
+function inputUsername(event){
+	if (event.keyCode == 13){
+		username = $("#username").val();
+		if(username && username.length>2){
+			startSelectLevel();
+		}
+		else{
+			showMessage("Vul een juiste naam in!");
+		}
+	}
+}
+
+<!--Kies het niveau-->
+function startSelectLevel(){
+	showMessage("Welkom " + username + ", kies het niveau!");
+	$("#leveldiv").attr("class","row");
+}
+
+function selectLevel(l){
+	level = l;
+	showMessage(username +", je koos niveau "+ level + ". Klik 'Start' om te beginnen!");
+	$("#startdiv").attr("class","row");
+}
+
+function start(){
+	seconds = 0;
+	fouten=0;
+	vraag = makeVraag(level);
+	vraagnr=0;
+	<!--$("#testdiv").attr("class","row");-->
+	startTimer();
+	startTest();
+	showMessage("Vul het antwoord in en sluit af met Enter.");
+	$("#usernamediv").attr("class","row invisible");
+	$("#startdiv").attr("class","row invisible");
+}
+
+function startTimer(){
+	$("#timer").html("Seconden:" + seconds);
+	seconds++;
+	if(!isDone()){
+		setTimeout(startTimer, 1000);
+	}
+}
+
+function startTest(){
+    var j;
+    j = 20 - vraagnr;
+    console.log(antw1[vraagnr]);
+	$("#question").html(vraag[vraagnr]+"=");
+	$("#nummer").html("Vraag "+j+":<br /;><br /;>");
+	$("#testdiv").attr("class","row");
+	$("#questiondiv").attr("class","row");
+	$("#answerdiv").attr("class","row");
+	$("#result").html("");
+	$("#reportMe").attr("class","btn btn-success hide");  
+}
+
+function showMessage(message){
+	$("#message").html(message);
+}
+
+function isDone(){
+	return vraagnr>=vraag.length;
+}
+function checkAnswer(e){
+	if (e.keyCode == 13) {
+        var answer = $("#antwoord").val();
+        if(answer == antw1[vraagnr] ||answer == antw2[vraagnr] ){
+        	showMessage("<font color='green'>Goed </font>"+username+", het kwadraat van "+vraag[vraagnr] + " is "+answer);
+        	vraagnr++;
+         	if(index<vraag.length){         		
+         		$("#antwoord").val("");
+         		console.log($("#antwoord").val());
+         		$("#question").html(vraag[vraagnr]);
+         	}
+         	else{
+         		$("#antwoord").val("");
+         		showMessage("Klaar! Bekijk rechts je score. Druk op Afronden om door te gaan.");
+         		$("#startdiv").attr("class","row invisible");
+         		showResult();
+         		$("#testdiv").attr("class","row invisible");
+         		$("#answerdiv").attr("class","row invisible");
+        	}
+        }
+        else{
+        	fouten++;
+         	showMessage("<font color='red'>Jammer </font>"+username+", niet goed!");
+         	$("#antwoord").val("");
+         	vraagnr++;   <!--deze moet weg -->
+         	startTest();
+        }
+    }
+}
+function showResult(){
+	var text = "Resultaten voor "+username+".<br />";
+	text = text + "Niveau <font color='green'>" + level +"</font>.<br />";
+	text = text + "Aantal fouten: <font color='red'>" + fouten + "</font>.<br />";
+	text = text + "Score: <font color='green'>" + calculate() +"</font><br />";
+	email = text;
+	text = text + "Der Score is afhankelijk van het aantal fouten en de tijd!</font><br />";
+	$("#result").html(text);
+	$("#reportMe").attr("class","btn btn-success");
+	$("#question").html("");
+} 
+
+function calculate(){
+	var F=0;
+	if(level == 1){
+	  var snelst = 80;
+	  F = Math.floor(-9 * seconds /(2 * snelst)+14.5);
+	  if (F>10){
+	      F = 10;
+	  }
+	  F = F - fouten;
+	  if (F<1){
+	    F = 1;
+	  }
+	}
+	else if(level == 2){
+	  var snelst = 40;
+	  F = Math.floor(-9 * seconds /(2 * snelst)+14.5);
+	  if (F>10){
+	      F = 10;
+	  }
+	  F = F - fouten;
+	  if (F<1){
+	    F = 1;
+	  }
+	}
+	else if(level == 3){
+	  var snelst = 40;
+	  F = Math.floor(-9 * seconds /(2 * snelst)+14.5);
+	  if (F>10){
+	      F = 10;
+	  }
+	  F = F - fouten;
+	  if (F<1){
+	    F = 1;
+	  }
+	}
+	return F;
+}
+function report(){
+	console.log("use google gmail js library!");
+	$("#startdiv").attr("class","row");
+	showMessage("Kies ander niveau of klik op Start om weer te beginnen!");
+
+	$("#fscf_name1").val("Kwadraten oefenen - " + username);
+	$("#fscf_email1").val("email_from_oefening_page@adridierdorp.nl");
+	$("#fscf_field1_2").val("Result from user " + username);
+	$("#fscf_field1_3").val(email);
+	$("#fscf_submit1").click();
+}
+	

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Merkwaardige producten</title>
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--jquery library-->
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<!--bootstrap library-->
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!--koppel javascript-->
+		<script type="text/javascript" src="../js/MWP.js"></script>
+	</head>
+<body>
+	<div class="jumbotron text-center">
+	  <h2>Ontbinden oefenen</h2>
+	  <p>Adri Dierdorp</p> 
+	</div>
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm-8 col-md-8">
+	      <div class="row" id="usernamediv">
+	      	<div class="col-sm-6">
+	      		<label for="username">Voer je naam in en sluit af met enter:</label>
+	      	</div>
+	      	<div class="col-sm-4">
+	      		<input type="text" class="form-control" id="username" onkeyup="inputUsername2(event);" autocomplete="off"/>
+	      	</div>
+	      </div>
+	      <div class="row invisible" id="leveldiv">
+	      	<div class="col-sm-8">
+	      		<input type="radio" name="level" value="easy" onclick="selectLevel2(1);">1: langzaam</input>
+				<input type="radio" name="level" value="normal" onclick="selectLevel2(2);">2: normaal</input>
+				<input type="radio" name="level" value="hard" onclick="selectLevel2(3);">3: snel</input>
+	      	</div>
+	      </div>
+	      <div class="row invisible" id="startdiv">
+	      	<div class="col-sm-6">
+	      		<button type="button" class="btn btn-success" onclick="start2();">Start</button>
+	      	</div>
+          </div>
+	      <div class="row invisible" id="testdiv">
+	      	<div class="col-sm-8">
+	     		<lable id="nummer" style="font-size:1em; "></lable>
+	     		<p>Ontbind: </p>
+	      	</div>
+	      </div>
+	      <div class="row invisible" id="questiondiv">
+	        <div class="col-sm-8">
+	      		<lable id="question" style="font-size:1em; color:red;"></lable>
+	        </div>
+	      </div>
+	      <div class="row invisible" id="answerdiv">
+	      	<div class="col-sm-4">
+	      		<input type="text" class="form-control" id="antwoord" onkeyup="checkAnswer2(event);" autocomplete="off"  size="6" /><br>
+	      	</div>
+	      </div>
+	      <div class="row">
+	      	<div class="col-sm-8">
+	      	    <button type="button" class="btn btn-success hide" onclick="kw2();" id="kwknop">kwadraat</button><br>
+	      		<label id="message"></label>
+	      	</div>
+	      </div>
+	    </div>
+	    <div class="col-sm-4" id="resultdiv">
+	      <h3>Resultaat</h3>
+	      <lable type="text" id="timer"></lable>
+	      <p id="result"></p>
+	      <button type="button" class="btn btn-success hide" onclick="report2();" id="reportMe">Afronden</button>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>

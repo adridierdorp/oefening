@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>oefeningen</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--jquery library-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!--bootstrap library-->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.14.2/math.min.js"></script>
+      <!--koppel javascript-->
+      <script type="text/javascript" src="../js/oefeningen.js"></script>
+      <script type="text/javascript" src="../js/kwadraat.js"></script>
+      <script type="text/javascript" src="../js/ontbind.js"></script>
+   </head>
+   <body>
+      <div class="container">
+         <!-- ===================preparation start====================== -->
+         <div class="row" id="titel"  >
+            <div class="col-sm-8" ">
+              <label id="titellabel"></label>
+            </div>
+         </div>
+         <!-- user name row -->
+         <div class="row" >
+            <div class="col-sm-4" id="geefnaam">
+               <label>Voer eerst je naam in, sluit af met enter en kies daarna een oefening:</label>
+            </div>
+            <div class="col-sm-4" id="vulinnaam">
+               <label>Naam:</label>
+               <input type="text" id="username" onkeyup="inputUsername(event);" autocomplete="off"/>
+            </div>
+         </div>
+         <!-- game type -->
+         <div class="row invisible" id="startGameDiv">
+            <div class="col-sm-2">
+               Kies oefening
+               <select onchange="createLevel(value);">
+                  <option value="kr_" SELECTED>Kwadraat</option>
+                  <option value="wwp_">Ontbind</option>
+               </select>
+            </div>
+            <div class="col-sm-2">
+               Kies niveau
+               <select id="testLevel">
+               </select>
+            </div>
+            <div class="col-sm-4">
+               <button type="button" class="btn btn-success" onclick="vulin();">Start</button>
+            </div>
+         </div>
+         <!-- ===================preparation end====================== -->
+         <!-- ===================message start====================== -->
+
+         <div  class="row">
+            <div class="col-sm-8 text-left">
+               <label id="message"></label>
+            </div>
+         </div>
+         <!-- ===================message end====================== -->
+         <!-- ===================test start====================== -->
+         <div id="testDiv" class="invisible">
+            <!-- timer -->
+            <div  class="row">
+               <div class="col-sm-6 text-right">
+                  <label id="timer"></label>
+               </div>
+            </div>
+            <!-- question -->
+            <div  class="row">
+               <div class="col-sm-6 text-left">
+                  <label id="question"></label>
+               </div>
+            </div>
+            <!-- answer -->
+            <div  class="row">
+               <div class="col-sm-6 text-right">
+                  <input type="text" class="form-control" id="answer" onkeyup="checkAnswer(event);" autocomplete="off"/>
+               </div>
+            </div>
+            <!-- notice -->
+            <div  class="row">
+               <div class="col-sm-8 text-left">
+                  <label id="notice"></label>
+               </div>
+            </div>
+         </div>
+         <!-- ===================test end====================== -->
+         <!-- ===================result start====================== -->
+         <div id="resultDiv" class="row invisible">
+            <div class="col-sm-8 text-left">
+               <h3>Resultaat</h3>
+               <p id="resultMessage"></p>
+               <button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
+            </div>
+         </div>
+         <!-- ===================result end====================== -->
+         <div id="reportDiv" class="row invisible">
+            <div class="col-sm-8 text-left">
+               [contact-form-7 id="127" title="Formulier"]
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
