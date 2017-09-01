@@ -19,6 +19,11 @@ function kr_GetGameName(){
 	return "Kwadraat";
 }
 
+function kr_CreateTitleLable(){
+	$("#titelLabel").html("<font color='green'><h2>KWADRATEN oefenen</h2></font>");
+}
+
+
 function kr_CreateQuestions(level){
 	var length = 20;
 	var getals = [];
@@ -47,9 +52,10 @@ function kr_CreateQuestions(level){
 	return getals;
 }
 
+
 function kr_CreateQuestion(question){
 	var questionHtml = "Geef het kwadraat van: <font color='red' size='2em'>"+ question + "</font>";
-	return questionHtml;
+	$("#question").html(questionHtml);
 }
 
 function kr_CreateNotice(answer,queston){

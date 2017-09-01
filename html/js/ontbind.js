@@ -19,6 +19,10 @@ function wwp_GetGameName() {
     return "ontbind";
 }
 
+function wwp_CreateTitleLable(){
+	$("#titelLabel").html("<font color='green'><h2>ONTBINDEN</h2><br /></font>Gebruik ^2 voor een kwadraat! bv.: (x+2)^2");
+}
+
 function wwp_CreateQuestions(level) {
     var length = 20;
     var getals = [];
@@ -77,7 +81,7 @@ function wwp_CreateQuestion(question) {
     } else if (ab < 0) {
         questionHtml = questionHtml + ab;
     }
-    return questionHtml;
+    $("#question").html(questionHtml);
 }
 
 

@@ -49,21 +49,19 @@ function startGame() {
     game.cursor = 0;
     game.seconds = 0;
     game.startedFlag = true;
+    game.MQ = MathQuill.getInterface(2);
   
-    var functionName = game.gameName + "CreateQuestions(" + game.level + ");";
-    game.questions = eval(functionName);
+    game.questions = window[game.gameName + "CreateQuestions"](game.level);
 
     showDiv("testDiv", true);
     showDiv("startGameDiv", false);
     showDiv("geefnaam", false);
     showDiv("vulinnaam", false);
     showDiv("titel", true)
-    if (game.gameName == "kr_"){
-        $("#titellabel").html("<font color='green'><h2>KWADRATEN oefenen</h2></font>");
-    }
-    else{
-    	$("#titellabel").html("<font color='green'><h2>ONTBINDEN</h2><br /></font>Gebruik ^2 voor een kwadraat! bv.: (x+2)^2");
-    }
+    
+    //set title
+    window[game.gameName + "CreateTitleLable"]();
+
     showMessage("Vraag: 1<br /> Vul het antwoord in en sluit af met Enter.");
 
     prepareQuestion();
@@ -99,7 +97,7 @@ function showReport() {
 }
 
 function showQuestion() {
-    $("#question").html(window[game.gameName + "CreateQuestion"](game.questions[game.cursor]));
+    window[game.gameName + "CreateQuestion"](game.questions[game.cursor]);
 }
 
 function reportMe() {
@@ -163,6 +161,15 @@ function showDiv(divId, show) {
     $("#" + divId).attr("class", display);
 }
 
+function showInput(inputId, show){
+	if(show){
+		$("#" + inputId).show();
+	}
+	else{
+		 $("#" + inputId).hide();
+	}
+}
+
 function showMessage(message) {
     $("#message").html(message);
 }
@@ -179,9 +186,8 @@ String.prototype.count = function(s1) {
     return (this.length - this.replace(new RegExp(s1, "g"), '').length) / s1.length;
 }
 
-function displayNumberInExpression(isFirst, number){
-	return number === 0;
-	if(a === 0 || x === 0){
+function displayNumberInExpression(isFirst, a){
+	if(a === 0){
 		return "";
 	}
 	var unit;
@@ -193,10 +199,12 @@ function displayNumberInExpression(isFirst, number){
 			unit = "+"+a;
 		}
 		else{
-			unit = "-"+a;
+			unit = ""+a;
 		}
 	}
+	return unit;
 }
+
 function isPlus(number){
 	if(number<0){
 		return false;
@@ -205,3 +213,14 @@ function isPlus(number){
 		return true;
 	}
 }
+
+function createQuestionLatex(divId){
+	var htmlElement = document.getElementById(divId);
+	var config = {
+	  handlers: { edit: function(){} },
+	  restrictMismatchedBrackets: true
+	};
+	var mathField = game.MQ.MathField(htmlElement, config);
+	return mathField;
+}
+

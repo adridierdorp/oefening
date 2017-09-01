@@ -36,6 +36,10 @@ function wortel_optellen_GetGameName() {
     return "Wortels Optellen";
 }
 
+function wortel_optellen_CreateTitleLable(){
+	$("#titelLabel").html("<font color='green'><h2>Wortels Optellen</h2><br /></font>");
+}
+
 /*
  * level 1:
  * a,b,c,d: -6 - 6 (maximum two 0 between four numbers)
@@ -55,21 +59,22 @@ function wortel_optellen_createQuestion(level){
 	var rangeX1;
 	var rangeX2;
 	
-	if(level === 1){
+	if(level == 1){
 		rangeForNumber = {min:-6,max: 6};
-		rangeX1 = {min:1,max: 20};
+		rangeX1 = {min:1,max: 10};
 		rangeX2 = {min:2,max: 10};
 	}
-	else if(level === 2){
-		rangeForNumber = {min:-6,max: 6};
-		rangeX1 = {min:1,max: 20};
+	else if(level == 2){
+		rangeForNumber = {min:-16,max:20};
+		rangeX1 = {min:1,max: 15};
 		rangeX2 = {min:2,max: 10};
 	}
-	else if(level === 3){
-		rangeForNumber = {min:-6,max: 6};
+	else if(level == 3){
+		rangeForNumber = {min:-16,max:40};
 		rangeX1 = {min:1,max: 20};
-		rangeX2 = {min:2,max: 10};
+		rangeX2 = {min:2,max: 15};
 	}
+	
 	while(question.a === 0 && question.b ===0){
 		question.a = createRandom(rangeForNumber.min, rangeForNumber.max);
 		question.b = createRandom(rangeForNumber.min, rangeForNumber.max);
@@ -80,12 +85,42 @@ function wortel_optellen_createQuestion(level){
 	}
 	question.x1= createRandom(rangeX1.min, rangeX1.max);
 	question.x2= createRandom(rangeX2.min, rangeX2.max);
-	
 	return question;
 }
 
 function wortel_optellen_CreateQuestion(question) {
-    var questionLatex = wortel_optellen_CreateUnit(true,question.a,Math.pow(question.x1, 2));
+	
+	$("#question").append("<br/>Herleid:<br/>");
+	$("#question").append("<div id='mathEditorQuestion'></div><br/>");
+	
+	//display the question
+	game.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');
+	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
+	
+	//hide the input
+	showInput("answer",false);
+	//add editor
+	$("#answerDiv").append("<div id='mathEditorAnswer'></div><br/>");
+	game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
+	//add button to check
+	$("#answerDiv").append("<button class='checkAnswerButton'>Click me</button><br/>");
+	$('#answerDiv').on('click','.checkAnswerButton', wortel_optellen_PreCheckAnswer);
+}
+
+function wortel_optellen_PreCheckAnswer(){
+	var answerText = game.mathEditorAnswer.getValue();
+	//answerText = replaceAll(answerText, '\\', '\\\\');
+	$("#answer").val(answerText);
+	showInput("answer",true);
+	checkAnswer({keyCode:13});
+}
+
+function wortel_optellen_Initialize(id){
+	  return new MathEditor(id);
+}
+
+function wortel_optellen_CreateLatex(question){
+	var questionLatex = wortel_optellen_CreateUnit(true,question.a,Math.pow(question.x1, 2));
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.b,Math.pow(question.x1, 2));
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.c,question.x2);
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.d,question.x2);
@@ -96,19 +131,7 @@ function wortel_optellen_CreateUnit(isFirst, a, x){
 	if(a === 0 || x === 0){
 		return "";
 	}
-	var unit;
-	if(isFirst){
-		unit = a+"";
-	}
-	else{
-		if(isPlus(a)){
-			unit = "+"+a;
-		}
-		else{
-			unit = "-"+a;
-		}
-	}
-	unit = unit+"\sqrt{"+x+"}";
+	var unit = displayNumberInExpression(isFirst, a)+"\\sqrt{"+x+"}";
 	return unit;
 }
 
@@ -120,13 +143,13 @@ function wortel_optellen_CreateQuestions(level) {
     	while (wortel_optellen_hasIt(quiestions, question)){
     		question = wortel_optellen_createQuestion(level);
     	}
-    	quiestions[length] = question;
+    	quiestions[i] = question;
     }
-    console.log(quiestions);
     return quiestions;
 }
 
 function wortel_optellen_hasIt(quiestions, test) {
+	//console.log(quiestions,test);
     $.each(quiestions, function(key, value) {
         if (value.a == test.a && value.b == test.b && value.c == test.c
         		&& value.d == test.d && value.x1 == test.x1 && value.x2 == test.x2) {
@@ -135,8 +158,6 @@ function wortel_optellen_hasIt(quiestions, test) {
     });
     return false;
 }
-
-
 
 function wortel_optellen_CreateNotice(answer, queston) {
     var notice;
