@@ -16,8 +16,8 @@ function MathEditor(id) {
     }
     mathed_tmp = ((typeof mathed_tmp != 'undefined') ? mathed_tmp : {});
     this.template = 'default';
-    this.default_toolbar_buttons = ["integral", "fraction", "square_root", "cube_root", "root", 'subscript', 'multiplication', 'division', 'plus_minus', 'pi', 'degree', 'not_equal', 'greater_equal', 'less_equal', 'greater_than', 'less_than', 'angle', 'parallel_to', 'perpendicular', 'triangle', 'parallelogram', 'round_brackets'];
-    this.default_toolbar_tabs = ["Algemeen", "Symbolen", "Meetkunde"];
+    this.default_toolbar_buttons = ["integral", "fraction", "square", "square_root", "cube_root", "root", 'superscript', 'multiplication', 'division', 'plus_minus', 'pi', 'degree', 'not_equal', 'greater_equal', 'less_equal', 'greater_than', 'less_than', 'angle', 'parallel_to', 'perpendicular', 'triangle', 'parallelogram', 'round_brackets'];
+    this.default_toolbar_tabs = ["Algemeen", "Symbolen"];
     button_meta = {
         "integral": {
                 latex: "\\int_{}^{}{}",
@@ -32,6 +32,13 @@ function MathEditor(id) {
             movefor: 1,
             tab: 1,
             icon: '\\frac{\\square}{\\square}'
+        },
+        "square": {
+            latex: "\\^2",
+            moveto: "Up",
+            movefor: 1,
+            tab: 1,
+            icon: 'x\\^2'
         },
         "mix_fraction": {
             latex: "\\frac{}{}",
@@ -66,7 +73,7 @@ function MathEditor(id) {
             moveto: "Up",
             movefor: 1,
             tab: 1,
-            icon: '\\square^2'
+            icon: 'x^\\square'
         },
         "subscript": {
             latex: "\\_{}",
@@ -76,9 +83,9 @@ function MathEditor(id) {
             icon: '\\square_{2}'
         },
         "multiplication": {
-            latex: "\\times",
+            latex: "\\cdot",//was times
             tab: 2,
-            icon: '\\times'
+            icon: '\\cdot'
         },
         "division": {
             latex: "\\div",
@@ -127,7 +134,7 @@ function MathEditor(id) {
         },
         "angle": {
             latex: "\\angle",
-            tab: 3,
+            tab: 2,
             icon: '\\angle'
         },
         "parallel_to": {
@@ -491,7 +498,7 @@ function MathEditor(id) {
     this.answerMathField = this.MQ.MathField(this.answerSpan, config);
     setToolbar(this.default_toolbar_buttons, this.answerSpan, this.answerMathField, this.topElements, this.default_toolbar_tabs, this.tabEnabled, this.isMobile);
     // basicStyling(this.answerSpan,this.topElements);
-}
+};
 
 MathEditor.prototype.getValue = function() {
     return this.answerMathField.latex();
@@ -554,7 +561,7 @@ MathEditor.prototype.setTemplate = function(name) {
     } else {
         console.warn("MathEditor: " + name + " is an invalid template name");
     }
-};
+}
 
 MathEditor.prototype.noKeyboard = function() {
     editor_id = jq(this.answerSpan).attr('id');
@@ -760,9 +767,9 @@ removeFromArray = function(arr) {
 basicStyling = function(answer_span, top_elements) {
     jq(answer_span).css('min-width', 500);
     jq(answer_span).css('max-width', 500);
-    jq(answer_span).css('min-height', 40);
+    jq(answer_span).css('min-height', 100);   // was 40
     jq(answer_span).css('padding', 5);
-    jq(answer_span).css('background', '#fbfafa');
+    jq(answer_span).css('background', '#fbfafa');//kleur invulvak
     jq(answer_span).css('font-size', '15pt');
     answerSpanWidth = jq(answer_span).width();
     top_elements.wrapper.css('min-width', 500 + 10);
@@ -770,6 +777,7 @@ basicStyling = function(answer_span, top_elements) {
     top_elements.toolbar.css('min-width', 500);
     top_elements.toolbar.css('max-width', 500);
     top_elements.toolbar.css('width', 500);
+    top_elements.toolbar.css('background', '#D6D4D4');  //kleur toolbar veranderd
 
     if ($(window).width() <= 550) {
         jq(answer_span).css('min-width', $(window).width() - 70);
@@ -778,3 +786,13 @@ basicStyling = function(answer_span, top_elements) {
         top_elements.toolbar.css('max-width', $(window).width() - 70);
     }
 };
+function kijkna(message){
+    
+//	var Antwtxt = document.getElementById('score');
+	
+//	 $("#score").html(document.getElementById('answer').textContent);
+	var message =  this.answerSpan;
+	 message = this.mathField.latex();
+    $("#score").html(message);
+};
+	

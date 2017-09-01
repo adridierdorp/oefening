@@ -5,7 +5,12 @@
 </head>
 <body style="background:#F6F4F4;overflow:hidden">
   <div id="answer"></div>
-
+  <div class="row" id="controleer">
+            <div class="col-sm-4">
+               <button type="button" class="btn btn-success" onclick="kijkna(answer);">Start</button>
+            </div><br>
+  </div>
+  <label>Controle: <span id="score"></label>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -13,9 +18,11 @@
 <script src="lib/matheditor.js"></script>
 <script type="text/javascript">
   var me = new MathEditor('answer');
-  //me.removeButtons(['fraction']);
+  me.removeButtons(['integral']);
+  me.removeButtons(['cube_root']);
+  me.removeButtons(['greater_than']);
+  me.removeButtons(['less_than']);
+  me.removeButtons(['division']);
   //me.setTemplate('floating-toolbar');
-
 </script>
-
 </html>

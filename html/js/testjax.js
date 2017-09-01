@@ -22,6 +22,6 @@ function fWortel() {
 }
 
 function fMacht() {
-    init().latex(document.getElementById('latex').textContent + '\\^{}');
+	document.getElementById("demo").innerHTML = 5 + 6;
     //init().latex();
 }

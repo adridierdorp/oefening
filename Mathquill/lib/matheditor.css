@@ -1,8 +1,8 @@
 .matheditor-btn-span{
     width: 45px;
-    height: 30px;
+    height: 37px;
     background: transparent;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     margin-right: 4px;
     margin-bottom: 4px;
     background: #F9F9F9;
@@ -16,7 +16,7 @@
 }
 .matheditor-btn-span:hover{
     background: #FFF;
-    border: 1px solid #aaa
+    border: 2px solid #aaa
 }
 .mq-editable-field span.mq-hasCursor{
   box-shadow: #68b4df 0 0 3px 2px !important; 
