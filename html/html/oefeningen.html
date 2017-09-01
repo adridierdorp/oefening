@@ -14,6 +14,13 @@
       <script type="text/javascript" src="../js/oefeningen.js"></script>
       <script type="text/javascript" src="../js/kwadraat.js"></script>
       <script type="text/javascript" src="../js/ontbind.js"></script>
+      <script type="text/javascript" src="../js/wortel_optellen.js"></script>
+      <!-- math library start -->
+      <link href="lib/mathquill.css" rel="stylesheet">
+	  <link href="lib/matheditor.css" rel="stylesheet">
+	  <script src="lib/mathquill.min.js"></script>
+	  <script src="lib/matheditor.js"></script>
+      <!-- math library end -->
    </head>
    <body>
       <div class="container">
@@ -40,6 +47,7 @@
                <select onchange="createLevel(value);">
                   <option value="kr_" SELECTED>Kwadraat</option>
                   <option value="wwp_">Ontbind</option>
+                  <option value="wortel_optellen_">Wortels Optellen</option>
                </select>
             </div>
             <div class="col-sm-2">
@@ -48,7 +56,7 @@
                </select>
             </div>
             <div class="col-sm-4">
-               <button type="button" class="btn btn-success" onclick="vulin();">Start</button>
+               <button type="button" class="btn btn-success" onclick="startGame();">Start</button>
             </div>
          </div>
          <!-- ===================preparation end====================== -->
@@ -71,12 +79,12 @@
             <!-- question -->
             <div  class="row">
                <div class="col-sm-6 text-left">
-                  <label id="question"></label>
+                  <div id="question"></div>
                </div>
             </div>
             <!-- answer -->
             <div  class="row">
-               <div class="col-sm-6 text-right">
+               <div class="col-sm-6 text-right" id="answerDiv">
                   <input type="text" class="form-control" id="answer" onkeyup="checkAnswer(event);" autocomplete="off"/>
                </div>
             </div>

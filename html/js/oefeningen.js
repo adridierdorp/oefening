@@ -8,7 +8,9 @@ var game = {
     cursor: 0,
     seconds: 0,
     startedFlag: false,
-    email: null
+    email: null,
+    mathEditorQuestion: null,
+    mathEditorAnswer: null
 }
 
 function inputUsername(event) {
@@ -175,4 +177,31 @@ function replaceAll(source, old, replace) {
 
 String.prototype.count = function(s1) {
     return (this.length - this.replace(new RegExp(s1, "g"), '').length) / s1.length;
+}
+
+function displayNumberInExpression(isFirst, number){
+	return number === 0;
+	if(a === 0 || x === 0){
+		return "";
+	}
+	var unit;
+	if(isFirst){
+		unit = a+"";
+	}
+	else{
+		if(isPlus(a)){
+			unit = "+"+a;
+		}
+		else{
+			unit = "-"+a;
+		}
+	}
+}
+function isPlus(number){
+	if(number<0){
+		return false;
+	}
+	else{
+		return true;
+	}
 }
