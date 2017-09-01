@@ -20,7 +20,7 @@ function MathEditor(id) {
     this.default_toolbar_tabs = ["Algemeen", "Symbolen"];
     button_meta = {
         "integral": {
-                latex: "\\int_{}^{}{}",
+                latex: "\\integral_{}^{}{}",
                 moveto: "Up",
                 movefor: 1,
                 tab: 1,
@@ -785,14 +785,5 @@ basicStyling = function(answer_span, top_elements) {
         top_elements.toolbar.css('min-width', $(window).width() - 70);
         top_elements.toolbar.css('max-width', $(window).width() - 70);
     }
-};
-function kijkna(message){
-    
-//	var Antwtxt = document.getElementById('score');
-	
-//	 $("#score").html(document.getElementById('answer').textContent);
-	var message =  this.answerSpan;
-	 message = this.mathField.latex();
-    $("#score").html(message);
 };
 	
