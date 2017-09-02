@@ -5,14 +5,15 @@ function wortel_optellen_kijkna(){
     $("#score").html(mathEditor.getValue());
 };
 
-function wortel_optellen_initialize(){
-	  mathEditor = new MathEditor('answer');
-	  //mathEditor.removeButtons(['integral']);
+function wortel_optellen_Initialize(id){
+	  mathEditor = new MathEditor(id);
+	  mathEditor.removeButtons(['integral']);
 	  mathEditor.removeButtons(['cube_root']);
 	  mathEditor.removeButtons(['greater_than']);
 	  mathEditor.removeButtons(['less_than']);
 	  mathEditor.removeButtons(['division']);
 	  //mathEditor.setTemplate('floating-toolbar');
+	  return mathEditor;
 }
 
 function wortel_optellen_CreateLevel() {
@@ -89,34 +90,30 @@ function wortel_optellen_createQuestion(level){
 }
 
 function wortel_optellen_CreateQuestion(question) {
-	
-	$("#question").append("<br/>Herleid:<br/>");
-	$("#question").append("<div id='mathEditorQuestion'></div><br/>");
-	
-	//display the question
-	game.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');
+	if(!game.mathEditorQuestion){
+		$("#question").append("<br/>Herleid:<br/>");
+		$("#question").append("<div id='mathEditorQuestion'></div><br/>");
+		
+		//display the question
+		game.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');	
+		
+		//add editor
+		$("#answerDiv").append("<div id='mathEditorAnswer'></div><br/>");
+		game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
+		//add button to check
+		$("#answerDiv").append("<button class='checkAnswerButton'>Click me</button><br/>");
+		$('#answerDiv').on('click','.checkAnswerButton', wortel_optellen_PreCheckAnswer);
+	}
 	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
-	
 	//hide the input
 	showInput("answer",false);
-	//add editor
-	$("#answerDiv").append("<div id='mathEditorAnswer'></div><br/>");
-	game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
-	//add button to check
-	$("#answerDiv").append("<button class='checkAnswerButton'>Click me</button><br/>");
-	$('#answerDiv').on('click','.checkAnswerButton', wortel_optellen_PreCheckAnswer);
 }
 
 function wortel_optellen_PreCheckAnswer(){
 	var answerText = game.mathEditorAnswer.getValue();
 	//answerText = replaceAll(answerText, '\\', '\\\\');
 	$("#answer").val(answerText);
-	showInput("answer",true);
 	checkAnswer({keyCode:13});
-}
-
-function wortel_optellen_Initialize(id){
-	  return new MathEditor(id);
 }
 
 function wortel_optellen_CreateLatex(question){
@@ -124,6 +121,9 @@ function wortel_optellen_CreateLatex(question){
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.b,Math.pow(question.x1, 2));
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.c,question.x2);
     questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.d,question.x2);
+    if(questionLatex.startsWith('+')){
+    	questionLatex = questionLatex.substring(1,questionLatex.length);
+    }
     return questionLatex;
 }
 
@@ -159,49 +159,39 @@ function wortel_optellen_hasIt(quiestions, test) {
     return false;
 }
 
-function wortel_optellen_CreateNotice(answer, queston) {
+function wortel_optellen_CreateNotice(answer, question) {
     var notice;
-    if (wortel_optellen_CheckAnswer(answer, queston)) {
+    if (wortel_optellen_CheckAnswer(answer, question)) {
         notice = "<font color='green'>Goed </font>"+", "+game.username;
+        game.mathEditorAnswer.setLatex('');
     } else {
         notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
     }
     return notice;
 }
-
-function wortel_optellen_CheckAnswer(answer, queston) {
-    var reg = new RegExp('^[0-9-+x()^]+$');
-    if (!reg.test(answer)) {
-        return false;
-    }
-    if (answer.count("^") > 1) {
-        return false;
-    } 
-    //if the answer likes (x+a)(x+a) return false
-    if(queston.a == queston.b ){
-       if(!answer.endsWith("^2") ){
-    	  return false;   
-       }	
-    }
-    
-    if (answer.count("^") == 1) {
-        if (answer.endsWith("^2")) {
-            var index = answer.indexOf("^2");
-            answer = answer.substring(0, index) + answer.substring(0, index);
-        } else {
-            return false;
-        }
-    }
-    console.log(answer);
-    for (var x = -100; x < 100; x++) {
-        var rightAnswer = (x + queston.a) * (x + queston.b);
-        var newExpression = replaceAll(answer.toLowerCase(), "x", x);
-        var givenAnswer = math.eval(newExpression);
-        if (rightAnswer != givenAnswer) {
-            return false;
-        }
-    }
-    return true;
+/*
+ * the answer should be: (a+b)*x1+(c+d)\\sqrt{x2}
+ * so 2 situations:
+ * 1, sqrt{x2} is a number, 
+ * 2, sqrt{x2} is an expression
+ */
+function wortel_optellen_CheckAnswer(answer, question) {
+	//caculate the right answer
+	var correctAnswer;
+	var isNumber = Number.isInteger(Math.sqrt(question.x2)) || (question.c+question.d) == 0;
+	if(isNumber){
+		correctAnswer = (question.a+question.b)*question.x1+(question.c+question.d)*Math.sqrt(question.x2);
+		console.log('is number', answer,correctAnswer);
+		return Number(answer) ==  correctAnswer;
+	}
+	else{
+		correctAnswer = displayNumberInExpression(true, (question.a+question.b)*question.x1);
+		correctAnswer = correctAnswer 
+			+ displayNumberInExpression(false, (question.c+question.d))
+			+ '\\sqrt{'+ question.x2 + '}';
+		console.log('is expression', answer,correctAnswer);
+		return answer ===  correctAnswer;
+	}
 }
 
 function wortel_optellen_CreateResultMessage(game) {

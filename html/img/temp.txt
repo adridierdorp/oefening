@@ -1,0 +1,8 @@
+    var length = 10;
+    var quiestions = [];
+
+    for (var i = 0; i < length; i++) {
+    	quiestions[length] = wortel_optellen_createQuestion(level);
+    }
+    console.log(quiestions);
+    return quiestions;

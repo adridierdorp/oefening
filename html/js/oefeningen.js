@@ -33,8 +33,8 @@ function selectGameAndLevel() {
 
 function createLevel(gameName) {
     game.gameName = gameName;
-    var functionName = game.gameName + "CreateLevel();";
-    var levels = eval(functionName);
+    var functionName = game.gameName + "CreateLevel";
+    var levels = window[functionName]();
     $("#testLevel").empty();
     $.each(levels, function(key, value) {
         $("#testLevel").append('<option value="' + value.value + '">' + value.name + '</option>');
@@ -202,6 +202,9 @@ function displayNumberInExpression(isFirst, a){
 			unit = ""+a;
 		}
 	}
+	if(a == 1 || a == -1){
+		unit = replaceAll(unit, "1", "");
+	}	
 	return unit;
 }
 
