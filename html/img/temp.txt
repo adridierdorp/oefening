@@ -1,8 +1,4 @@
-    var length = 10;
-    var quiestions = [];
+font/Symbola.eot
 
-    for (var i = 0; i < length; i++) {
-    	quiestions[length] = wortel_optellen_createQuestion(level);
-    }
-    console.log(quiestions);
-    return quiestions;
+url(font/
+url(http://www.adridierdorp.nl/lib/font/

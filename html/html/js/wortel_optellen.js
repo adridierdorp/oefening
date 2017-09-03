@@ -36,7 +36,7 @@ function wortel_optellen_CreateLevel() {
 }
 
 function wortel_optellen_GetGameName() {
-    return "Wortels Optellen";
+    return "Wortels_Optellen";
 }
 
 function wortel_optellen_CreateTitleLable(){

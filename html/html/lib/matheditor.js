@@ -24,14 +24,14 @@ function MathEditor(id) {
                 moveto: "Up",
                 movefor: 1,
                 tab: 1,
-                icon: '\\integral{\\square}'
+                icon: '\\integral{x}'
          },
         "fraction": {
             latex: "\\frac{}{}",
             moveto: "Up",
             movefor: 1,
             tab: 1,
-            icon: '\\frac{\\square}{\\square}'
+            icon: '\\frac{a}{b}'
         },
         "square": {
             latex: "\\^2",
@@ -52,14 +52,14 @@ function MathEditor(id) {
             moveto: "Left",
             movefor: 1,
             tab: 1,
-            icon: '\\sqrt{\\square}'
+            icon: '\\sqrt{x}'
         },
         "cube_root": {
             latex: "\\sqrt[3]{}",
             moveto: "Left",
             movefor: 1,
             tab: 1,
-            icon: '\\sqrt[3]{\\square}'
+            icon: '\\sqrt[3]{x}'
         },
         "root": {
             latex: "\\sqrt[{}]{}",
@@ -73,7 +73,7 @@ function MathEditor(id) {
             moveto: "Up",
             movefor: 1,
             tab: 1,
-            icon: 'x^\\square'
+            icon: 'x^a'
         },
         "subscript": {
             latex: "\\_{}",
@@ -162,7 +162,7 @@ function MathEditor(id) {
             moveto: "Left",
             movefor: 1,
             tab: 1,
-            icon: '\\left(\\square\\right)'
+            icon: '\\left(...\\right)'
         }
     };
     keyboard_keys = {
