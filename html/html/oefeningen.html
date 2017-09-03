@@ -45,7 +45,7 @@
          <!-- game type -->
          <div class="row invisible" id="startGameDiv">
             <div class="col-sm-2">
-               Kies oefening
+               Kies oefening<br/>
                <select onchange="createLevel(value);">
                   <option value="kr_" SELECTED>Kwadraat</option>
                   <option value="wwp_">Ontbind</option>
@@ -53,7 +53,7 @@
                </select>
             </div>
             <div class="col-sm-2">
-               Kies niveau
+               Kies niveau<br/>
                <select id="testLevel">
                </select>
             </div>
@@ -62,8 +62,18 @@
             </div>
          </div>
          <!-- ===================preparation end====================== -->
+         
+         <!-- ===================result start====================== -->
+         <div id="resultDiv" class="row invisible">
+            <div class="col-sm-8 text-left">
+               <h3>Resultaat</h3>
+               <p id="resultMessage"></p>
+               <button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
+            </div>
+         </div>
+         <!-- ===================result end====================== -->
+         
          <!-- ===================message start====================== -->
-
          <div  class="row">
             <div class="col-sm-8 text-left">
                <label id="message"></label>
@@ -87,6 +97,7 @@
             <!-- answer -->
             <div  class="row">
                <div class="col-sm-6 text-left" id="answerDiv">
+               	  <div id='mathEditorAnswerDiv'></div>
                   <input type="text" class="form-control" id="answer" onkeyup="checkAnswer(event);" autocomplete="off"/>
                </div>
             </div>
@@ -98,15 +109,6 @@
             </div>
          </div>
          <!-- ===================test end====================== -->
-         <!-- ===================result start====================== -->
-         <div id="resultDiv" class="row invisible">
-            <div class="col-sm-8 text-left">
-               <h3>Resultaat</h3>
-               <p id="resultMessage"></p>
-               <button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
-            </div>
-         </div>
-         <!-- ===================result end====================== -->
          <div id="reportDiv" class="row invisible">
             <div class="col-sm-8 text-left">
                [contact-form-7 id="127" title="Formulier"]

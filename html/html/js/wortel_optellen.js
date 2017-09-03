@@ -102,11 +102,11 @@ function wortel_optellen_CreateQuestion(question) {
 		game.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');	
 		
 		//add editor
-		$("#answerDiv").append("<div id='mathEditorAnswer'></div><br/>");
+		$("#mathEditorAnswerDiv").append("<div id='mathEditorAnswer'></div><br/>");
 		game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
 		//add button to check
-		$("#answerDiv").append("<button id='checkAnswerButton'>Enter</button><br/>");
-		$('#answerDiv').on('click','#checkAnswerButton', wortel_optellen_PreCheckAnswer);
+		$("#mathEditorAnswerDiv").append("<button id='checkAnswerButton'>Enter</button><br/>");
+		$('#mathEditorAnswerDiv').on('click','#checkAnswerButton', wortel_optellen_PreCheckAnswer);
 	}
 	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
 	//hide the input
@@ -249,3 +249,9 @@ function wortel_optellen_calculate(game) {
     return F;
 }
 
+
+function wortel_optellen_stop() {
+    $("#mathEditorAnswerDiv").empty();
+    $("#question").empty();
+    showInput("answer",true);
+}

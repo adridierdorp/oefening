@@ -119,3 +119,7 @@ function kr_calculate(game){
 	}
 	return F;
 }
+
+
+function kr_stop() {
+}

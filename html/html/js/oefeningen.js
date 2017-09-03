@@ -49,6 +49,8 @@ function startGame() {
     game.cursor = 0;
     game.seconds = 0;
     game.startedFlag = true;
+    game.mathEditorQuestion = null;
+    game.mathEditorAnswer = null;
     game.MQ = MathQuill.getInterface(2);
   
     game.questions = window[game.gameName + "CreateQuestions"](game.level);
@@ -57,7 +59,7 @@ function startGame() {
     showDiv("startGameDiv", false);
     showDiv("geefnaam", false);
     showDiv("vulinnaam", false);
-    showDiv("titel", true)
+    showDiv("titel", true);
     
     //set title
     window[game.gameName + "CreateTitleLable"]();
@@ -93,7 +95,7 @@ function showReport() {
     game.score = window[game.gameName + "calculate"](game);
     game.email = window[game.gameName + "CreateResultMessage"](game);
     $("#resultMessage").html(game.email);
-    showMessage("Klaar! Bekijk onder je score. Druk op Afronden om door te gaan.");
+    showMessage("Klaar! Druk op Afronden om door te gaan.");
 }
 
 function showQuestion() {
@@ -121,6 +123,10 @@ function reportMe() {
     showDiv("startGameDiv", true);
     showDiv("resultDiv", false);
     showMessage("Kies een nieuwe oefening.");
+    
+    $("#resultMessage").html('');
+    //
+    window[game.gameName + "stop"]();
 }
 
 function checkAnswer(e) {

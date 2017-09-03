@@ -159,3 +159,5 @@ function wwp_calculate(game) {
     return F;
 }
 
+function wwp_stop() {
+}
