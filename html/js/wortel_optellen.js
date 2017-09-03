@@ -165,7 +165,7 @@ function wortel_optellen_CreateNotice(answer, question) {
         notice = "<font color='green'>Goed </font>"+", "+game.username;
         game.mathEditorAnswer.setLatex('');
     } else {
-        notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
+        notice = "<font color='red'>Jammer </font>, Herleid opnieuw of verder.";
     }
     return notice;
 }
@@ -176,22 +176,44 @@ function wortel_optellen_CreateNotice(answer, question) {
  * 2, sqrt{x2} is an expression
  */
 function wortel_optellen_CheckAnswer(answer, question) {
-	//caculate the right answer
-	var correctAnswer;
-	var isNumber = Number.isInteger(Math.sqrt(question.x2)) || (question.c+question.d) == 0;
-	if(isNumber){
-		correctAnswer = (question.a+question.b)*question.x1+(question.c+question.d)*Math.sqrt(question.x2);
-		console.log('is number', answer,correctAnswer);
-		return Number(answer) ==  correctAnswer;
+	//calculate the right answer
+	var correctAnswer = (question.a+question.b)*question.x1+(question.c+question.d) * math.sqrt(question.x2);
+	//calculate the input answer
+	var inputAnswer;
+	var sqrtIndex = answer.indexOf('sqrt');
+	if(sqrtIndex == -1){
+		if(isNaN(answer)){
+			return false;
+		}
+		inputAnswer = answer;
 	}
 	else{
-		correctAnswer = displayNumberInExpression(true, (question.a+question.b)*question.x1);
-		correctAnswer = correctAnswer 
-			+ displayNumberInExpression(false, (question.c+question.d))
-			+ '\\sqrt{'+ question.x2 + '}';
-		console.log('is expression', answer,correctAnswer);
-		return answer ===  correctAnswer;
+		var sqrtNumber = subStringBetweenLetters(answer,'{','}',0);
+		if(!hasNoSqrtRoot(sqrtNumber)){
+			return false;
+		}
+		var sqrt = math.sqrt(sqrtNumber);
+		//replace the math expressions
+		answer = replaceAllNonNumberAndLetter(answer,'');
+		answer = replaceAll(answer,'{','');
+		answer = replaceAll(answer,'}','');		
+		if(sqrtIndex == 0){			
+			answer = replaceAll(answer,'sqrt',sqrt);
+		}
+		else{
+			sqrtIndex = answer.indexOf('sqrt');
+			var letterBeforeSqrt = answer.substring(sqrtIndex - 1, sqrtIndex);
+			if(isNaN(letterBeforeSqrt)){
+				answer = replaceAll(answer,'sqrt',sqrt);
+			}
+			else{
+				answer = replaceAll(answer,'sqrt','*'+sqrt);
+			}
+		}
+		inputAnswer = math.eval(answer);
 	}
+	
+	return Math.round(inputAnswer*10000) ==  Math.round(correctAnswer*10000);
 }
 
 function wortel_optellen_CreateResultMessage(game) {

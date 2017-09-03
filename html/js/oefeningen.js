@@ -28,10 +28,6 @@ function selectGameAndLevel() {
     showMessage("Welkom " + game.username + ", kies het niveau!");
     showDiv("startGameDiv", true);
     //
-    for(var i = 0; i< 5; i++){
-    	var random = createRandom(1, 200);
-    	console.log(random,', prime list is: ',getPrimeArray(random));
-    }
     createLevel("kr_");
 }
 
@@ -176,49 +172,6 @@ function showInput(inputId, show){
 
 function showMessage(message) {
     $("#message").html(message);
-}
-
-function createRandom(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function replaceAll(source, old, replace) {
-    return source.replace(new RegExp(old, 'g'), replace);
-}
-
-String.prototype.count = function(s1) {
-    return (this.length - this.replace(new RegExp(s1, "g"), '').length) / s1.length;
-}
-
-function displayNumberInExpression(isFirst, a){
-	if(a === 0){
-		return "";
-	}
-	var unit;
-	if(isFirst){
-		unit = a+"";
-	}
-	else{
-		if(isPlus(a)){
-			unit = "+"+a;
-		}
-		else{
-			unit = ""+a;
-		}
-	}
-	if(a == 1 || a == -1){
-		unit = replaceAll(unit, "1", "");
-	}	
-	return unit;
-}
-
-function isPlus(number){
-	if(number<0){
-		return false;
-	}
-	else{
-		return true;
-	}
 }
 
 function createQuestionLatex(divId){

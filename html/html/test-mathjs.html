@@ -13,9 +13,31 @@
 
 	});
 
+	function subStringBetweenLetters(str, begin, end, index){        
+        var indexBegin = str.indexOf(begin);
+        var indexEnd = str.indexOf(end);
+        var matches = [];
+        while(indexBegin>=0 && indexEnd >=0){
+        	matches.push(str.substring(indexBegin+begin.length,indexEnd));
+        	str = str.substring(0,indexBegin - 1) + str.substring(indexEnd + 1,str.length);
+        	indexBegin = str.indexOf(begin);
+        	indexEnd = str.indexOf(end);
+        }
+        console.log(matches);
+        if(index < matches.length){
+        	return matches[index];
+        }
+        return null;
+	}
+
 	function kijkna() {
 		var test = "2";
+		var s = '1:{2};3:{4};';
+		var arrStr = s.match(":(.*);");
+		
 		$("#score").html(math.sqrt(test));
+		$("#score").html(arrStr[1]);
+		console.log(subStringBetweenLetters(s,'{','}',1));
 	}
 </script>
 </head>
