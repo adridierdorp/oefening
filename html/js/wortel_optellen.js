@@ -95,7 +95,7 @@ function wortel_optellen_CreateQuestion(question) {
 	if(!game.mathEditorQuestion){
 		$("#question").append("<br/>Herleid:<br/>");
 		$("#question").append("<div id='mathEditorQuestion'></div><br/>");
-		$("#question").append("<button id='resetQuestionButton'>Reset question</button><br/>");
+		$("#question").append("<button id='resetQuestionButton'>Reset de vraag</button><br/>");
 		$('#question').on('click','#resetQuestionButton', prepareQuestion);
 		
 		//display the question
@@ -105,7 +105,7 @@ function wortel_optellen_CreateQuestion(question) {
 		$("#answerDiv").append("<div id='mathEditorAnswer'></div><br/>");
 		game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
 		//add button to check
-		$("#answerDiv").append("<button id='checkAnswerButton'>Click me</button><br/>");
+		$("#answerDiv").append("<button id='checkAnswerButton'>Enter</button><br/>");
 		$('#answerDiv').on('click','#checkAnswerButton', wortel_optellen_PreCheckAnswer);
 	}
 	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
