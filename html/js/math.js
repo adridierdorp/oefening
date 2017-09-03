@@ -8,6 +8,9 @@ function isPrimeNumber(number) {
 }
 
 function hasNoSqrtRoot(number){
+	if(isNaN(number)){
+		return false;
+	}
 	var array = getPrimeArray(number);
 	for(var i =0;i<array.length;i++){
 		if(array[i].times>1){
@@ -65,7 +68,6 @@ function subStringBetweenLetters(str, begin, end, index){
     	indexBegin = str.indexOf(begin);
     	indexEnd = str.indexOf(end);
     }
-    console.log(matches);
     if(index < matches.length){
     	return matches[index];
     }
