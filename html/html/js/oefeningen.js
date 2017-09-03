@@ -93,7 +93,7 @@ function showReport() {
     game.score = window[game.gameName + "calculate"](game);
     game.email = window[game.gameName + "CreateResultMessage"](game);
     $("#resultMessage").html(game.email);
-    showMessage("Klaar! Bekijk rechts je score. Druk op Afronden om door te gaan.");
+    showMessage("Klaar! Bekijk onder je score. Druk op Afronden om door te gaan.");
 }
 
 function showQuestion() {
