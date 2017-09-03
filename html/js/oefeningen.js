@@ -28,6 +28,10 @@ function selectGameAndLevel() {
     showMessage("Welkom " + game.username + ", kies het niveau!");
     showDiv("startGameDiv", true);
     //
+    for(var i = 0; i< 5; i++){
+    	var random = createRandom(1, 200);
+    	console.log(random,', prime list is: ',getPrimeArray(random));
+    }
     createLevel("kr_");
 }
 

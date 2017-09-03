@@ -1,0 +1,30 @@
+<html>
+<head>
+<!--jquery library-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--math javascript-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.14.2/math.min.js"></script>
+	
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+	});
+
+	function kijkna() {
+		var test = "2";
+		$("#score").html(math.sqrt(test));
+	}
+</script>
+</head>
+<body style="background: #F6F4F4; overflow: hidden">
+	<div id="answer"></div>
+	<div>
+		<button type="button" class="btn btn-success" onclick="kijkna();">Start</button>
+	</div>
+	<label>Controle:</label>
+	<span id="score"></span>
+</body>
+</html>
