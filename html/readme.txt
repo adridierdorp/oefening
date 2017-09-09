@@ -8,3 +8,6 @@ some resources of math expression editor
 	Another good example: How to use mathquill
 		http://www.jqueryscript.net/text/Simple-WYSIWYG-Math-Editor-With-jQuery-Mathquill-matheditor-js.html
 	
+	js expression parser.
+		http://algebra.js.org/
+	
