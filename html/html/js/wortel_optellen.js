@@ -106,7 +106,7 @@ function wortel_optellen_CreateQuestion(question) {
 		game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
 		//add button to check
 		$("#mathEditorAnswerDiv").append("<button id='checkAnswerButton'>Enter</button><br/>");
-		$('#mathEditorAnswerDiv').on('click','#checkAnswerButton', wortel_optellen_PreCheckAnswer);
+		$('#checkAnswerButton').on('click', wortel_optellen_PreCheckAnswer);
 	}
 	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
 	//hide the input

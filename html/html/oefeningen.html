@@ -1,119 +1,101 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>oefeningen</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!--jquery library-->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <!--bootstrap library-->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <!--math javascript-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.14.2/math.min.js"></script>
-      <!--koppel javascript-->
-      <script type="text/javascript" src="js/oefeningen.js"></script>
-      <script type="text/javascript" src="js/kwadraat.js"></script>
-      <script type="text/javascript" src="js/ontbind.js"></script>
-      <script type="text/javascript" src="js/wortel_optellen.js"></script>
-      <script type="text/javascript" src="js/math.js"></script>
-      <!-- math library start -->
-      <link href="lib/mathquill.css" rel="stylesheet">
-	  <link href="lib/matheditor.css" rel="stylesheet">
-	  <script src="lib/mathquill.min.js"></script>
-	  <script src="lib/matheditor.js"></script>
-      <!-- math library end -->
-   </head>
-   <body>
-      <div class="container">
-         <!-- ===================preparation start====================== -->
-         <div class="row" id="titel"  >
-            <div class="col-sm-8" ">
-              <label id="titelLabel"></label>
-            </div>
-         </div>
-         <!-- user name row -->
-         <div class="row" >
-            <div class="col-sm-4" id="geefnaam">
-               <label>Voer eerst je naam in, sluit af met enter en kies daarna een oefening:</label>
-            </div>
-            <div class="col-sm-4" id="vulinnaam">
-               <label>Naam:</label>
-               <input type="text" id="username" onkeyup="inputUsername(event);" autocomplete="off"/>
-            </div>
-         </div>
-         <!-- game type -->
-         <div class="row invisible" id="startGameDiv">
-            <div class="col-sm-2">
-               Kies oefening<br/>
-               <select onchange="createLevel(value);">
-                  <option value="kr_" SELECTED>Kwadraat</option>
-                  <option value="wwp_">Ontbind</option>
-                  <option value="wortel_optellen_">Wortels Optellen</option>
-               </select>
-            </div>
-            <div class="col-sm-2">
-               Kies niveau<br/>
-               <select id="testLevel">
-               </select>
-            </div>
-            <div class="col-sm-4">
-               <button type="button" class="btn btn-success" onclick="startGame();">Start</button>
-            </div>
-         </div>
-         <!-- ===================preparation end====================== -->
-         
-         <!-- ===================result start====================== -->
-         <div id="resultDiv" class="row invisible">
-            <div class="col-sm-8 text-left">
-               <h3>Resultaat</h3>
-               <p id="resultMessage"></p>
-               <button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
-            </div>
-         </div>
-         <!-- ===================result end====================== -->
-         
-         <!-- ===================message start====================== -->
-         <div  class="row">
-            <div class="col-sm-8 text-left">
-               <label id="message"></label>
-            </div>
-         </div>
-         <!-- ===================message end====================== -->
-         <!-- ===================test start====================== -->
-         <div id="testDiv" class="invisible">
-            <!-- timer -->
-            <div  class="row">
-               <div class="col-sm-6 text-right">
-                  <label id="timer"></label>
-               </div>
-            </div>
-            <!-- question -->
-            <div  class="row">
-               <div class="col-sm-6 text-left">
-                  <div id="question"></div>
-               </div>
-            </div>
-            <!-- answer -->
-            <div  class="row">
-               <div class="col-sm-6 text-left" id="answerDiv">
-               	  <div id='mathEditorAnswerDiv'></div>
-                  <input type="text" class="form-control" id="answer" onkeyup="checkAnswer(event);" autocomplete="off"/>
-               </div>
-            </div>
-            <!-- notice -->
-            <div  class="row">
-               <div class="col-sm-8 text-left">
-                  <label id="notice"></label>
-               </div>
-            </div>
-         </div>
-         <!-- ===================test end====================== -->
-         <div id="reportDiv" class="row invisible">
-            <div class="col-sm-8 text-left">
-               [contact-form-7 id="127" title="Formulier"]
-            </div>
-         </div>
-      </div>
-   </body>
+<head>
+<title>oefeningen</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--jquery library-->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--bootstrap library-->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--math javascript-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.14.2/math.min.js"></script>
+<!-- math library start -->
+<link href="lib/mathquill.css" rel="stylesheet">
+<link href="lib/matheditor.css" rel="stylesheet">
+<script src="lib/mathquill.min.js"></script>
+<script src="lib/matheditor.js"></script>
+<!-- math library end -->
+<!--koppel javascript-->
+<script type="text/javascript" src="js/oefeningen.js"></script>
+<script type="text/javascript" src="js/kwadraat.js"></script>
+<script type="text/javascript" src="js/ontbind.js"></script>
+<script type="text/javascript" src="js/wortel_optellen.js"></script>
+<script type="text/javascript" src="js/myMath.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+</head>
+<body>
+	<div class="container">
+		<!-- ===================message area, and timer ====================== -->
+		<div class="row" id="messageDiv">
+			<label id=titelLabel><font color='green'><h2></h2></font></label>
+			<br/>
+			<div class="col-sm-8 text-left">
+				<div id="messageLabel"></div>
+			</div>
+			<div class="col-sm-4 text-right">
+				<label id="timerLabel"></label>
+			</div>
+		</div>
+		<!-- ===================active start====================== -->
+		<div class="row" id="activeDiv"></div>
+		<!-- ===================inactive start====================== -->
+		<div class="invisible" id="inactiveDiv">
+			<!-- input user name -->
+			<div class="row" id="inputUsernameDiv">
+				<div class="col-sm-6">
+					<label>Voer eerst je naam in, sluit af met enter en kies
+						daarna een oefening:</label>
+				</div>
+				<div class="col-sm-6">
+					<label>Naam:</label> <input type="text" id="username"
+						onkeyup="inputUsername(event);" autocomplete="off" />
+				</div>
+			</div>
+			<!-- select the game and type, and start the game -->
+			<div class="row" id="selectGameAndStartDiv">
+				<div class="col-sm-4">
+					Kies oefening<br /> <select onchange="createLevel(value);"
+						id="testGame">
+					</select>
+				</div>
+				<div class="col-sm-4">
+					Kies niveau<br /> <select id="testLevel">
+					</select>
+				</div>
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-success"
+						onclick="startTest();">Start</button>
+				</div>
+			</div>
+			<!-- question and answer div-->
+			<div id="questionAndAnswerDiv" class="row">
+				<div class="row">
+					<div id='questionDiv' class="col-sm-12 text-left"></div>
+				</div>
+				<div class="row">
+					<div id='answerDiv' class="col-sm-12 text-left"></div>
+				</div>
+			</div>
+			<!-- show result div-->
+			<div id="showResultDiv" class="row">
+				<div class="col-sm-12 text-left">
+					<h3>Resultaat</h3>
+					<p id="resultMessage"></p>
+					<button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
+				</div>
+			</div>
+			<!-- report me -->
+			<div id="reportDiv" class="row">
+				<div class="col-sm-12 text-left">[contact-form-7 id="127"
+					title="Formulier"]</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

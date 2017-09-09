@@ -1,3 +1,7 @@
+function kr_GetGameName(){
+	return "KWADRATEN oefenen";
+}
+
 function kr_CreateLevel() {
     var levels = [{
             name: 'Eenvoudig',
@@ -15,17 +19,8 @@ function kr_CreateLevel() {
     return levels;
 }
 
-function kr_GetGameName(){
-	return "Kwadraat";
-}
-
-function kr_CreateTitleLable(){
-	$("#titelLabel").html("<font color='green'><h2>KWADRATEN oefenen</h2></font>");
-}
-
-
 function kr_CreateQuestions(level){
-	var length = 20;
+	var length = 2;
 	var getals = [];
 	<!--vul de array getallen in volgorde-->
 	for(var i=0;i<length;i++){
@@ -52,21 +47,29 @@ function kr_CreateQuestions(level){
 	return getals;
 }
 
-
 function kr_CreateQuestion(question){
 	var questionHtml = "Geef het kwadraat van: <font color='red' size='2em'>"+ question + "</font>";
-	$("#question").html(questionHtml);
+	$("#questionDiv").html(questionHtml);
+	//
+	var inputText ="<input type='text' id='answerCheck' autocomplete='off'/>";
+	$('#answerDiv').append(inputText);
+	$("#answerCheck").on('keyup', kr_PreCheckAnswer);
 }
 
-function kr_CreateNotice(answer,queston){
-	var notice;
-	if(kr_CheckAnswer(answer,queston)){
-		notice = "<font color='green'>Goed </font>, "+game.username+ " het klopt dat, "+queston + "<sup>2</sup>= "+answer;
+function kr_PreCheckAnswer(e){
+	e.preventDefault();
+	if(isEnterKey(e)){
+		var answer = $('#answerCheck').val();
+		var question = game.questions[game.cursor];
+		var notice;
+		if(checkAnswerAndMoveToNext(answer,question)){
+			notice = "<font color='green'>Goed </font>, "+game.username+ " het klopt dat, "+ question + "<sup>2</sup>= "+answer;
+		}
+		else{
+			notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
+		}
+		showMessage(notice);
 	}
-	else{
-		notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
-	}
-	return notice;
 }
 
 function kr_CheckAnswer(answer, question){
@@ -118,8 +121,4 @@ function kr_calculate(game){
 	  }
 	}
 	return F;
-}
-
-
-function kr_stop() {
 }
