@@ -1,3 +1,7 @@
+function wwp_GetGameName() {
+    return "ONTBINDEN oefenen";
+}
+
 function wwp_CreateLevel() {
     var levels = [{
             name: 'Langzaam',
@@ -13,14 +17,6 @@ function wwp_CreateLevel() {
         }
     ];
     return levels;
-}
-
-function wwp_GetGameName() {
-    return "ontbind";
-}
-
-function wwp_CreateTitleLable(){
-	$("#titelLabel").html("<font color='green'><h2>ONTBINDEN</h2><br /></font>Gebruik ^2 voor een kwadraat! bv.: (x+2)^2");
 }
 
 function wwp_CreateQuestions(level) {
@@ -59,29 +55,16 @@ function wwp_hasIt(getals, variables) {
 }
 
 function wwp_CreateQuestion(question) {
-    var a_b = question.a + question.b;
-    var questionHtml = "Ontbind x<sup>2</sup>";
-    if (a_b > 0) {
-        if (a_b == 1) {
-            questionHtml = questionHtml + "+x";
-        } else {
-            questionHtml = questionHtml + "+" + a_b + "x";
-        }
-    } else if (a_b < 0) {
-        if (a_b == -1) {
-            questionHtml = questionHtml + "-x";
-        } else {
-            questionHtml = questionHtml + a_b + "x";
-        }
-    }
-
-    var ab = question.a * question.b;
-    if (ab > 0) {
-        questionHtml = questionHtml + "+" + ab;
-    } else if (ab < 0) {
-        questionHtml = questionHtml + ab;
-    }
-    $("#question").html(questionHtml);
+	$("#questionDiv").append("<span id='myEquation'></span>");
+    var n1 = algebra.parse("x + " + question.a);
+    var n2 = algebra.parse("x + " + question.b);
+    var expr = n1.multiply(n2);
+    var mathNode = document.getElementById("myEquation");
+    katex.render(algebra.toTex(expr), mathNode);
+    
+    var inputText ="<input type='text' id='answerCheck' autocomplete='off'/>";
+	$('#answerDiv').append(inputText);
+	$("#answerCheck").on('keyup', wwp_PreCheckAnswer);
 }
 
 
