@@ -17,7 +17,7 @@ function wwp_CreateLevel() {
 }
 
 function wwp_CreateQuestions(level) {
-	var length = 20;
+	var length = gameLengths.ontbind;
 	var getals = [];
 
 	for (var i = 0; i < length; i++) {

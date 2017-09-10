@@ -20,7 +20,7 @@ function kr_CreateLevel() {
 }
 
 function kr_CreateQuestions(level){
-	var length = 20;
+	var length = gameLengths.kwadraat;
 	var getals = [];
 	<!--vul de array getallen in volgorde-->
 	for(var i=0;i<length;i++){

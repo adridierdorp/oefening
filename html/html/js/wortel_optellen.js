@@ -66,7 +66,7 @@ function wortel_optellen_CreateUnit(isFirst, a, x){
 }
 
 function wortel_optellen_CreateQuestions(level) {
-    var length = 10;
+    var length = gameLengths.wortels;
     var quiestions = [];
     for (var i = 0; i < length; i++) {
     	var question = wortel_optellen_createOneQuestion(level);

@@ -21,8 +21,14 @@
 <script src="lib/mathquill.min.js"></script>
 <script src="lib/matheditor.js"></script>
 <script src="js/algebra-0.2.6.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css" integrity="sha384-B41nY7vEWuDrE9Mr+J2nBL0Liu+nl/rBXTdpQal730oTHdlrlXHzYMOhDU60cwde" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js" integrity="sha384-L9gv4ooDLrYwW0QCM6zY3EKSSPrsuUncpx26+erN0pJX4wv1B1FzVW1SvpcJPx/8" crossorigin="anonymous"></script> 
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css"
+	integrity="sha384-B41nY7vEWuDrE9Mr+J2nBL0Liu+nl/rBXTdpQal730oTHdlrlXHzYMOhDU60cwde"
+	crossorigin="anonymous">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"
+	integrity="sha384-L9gv4ooDLrYwW0QCM6zY3EKSSPrsuUncpx26+erN0pJX4wv1B1FzVW1SvpcJPx/8"
+	crossorigin="anonymous"></script>
 <!-- math library end -->
 <script type="text/javascript" src="js/oefeningen.js"></script>
 <script type="text/javascript" src="js/kwadraat.js"></script>
@@ -34,70 +40,76 @@
 <!--koppel javascript-->
 </head>
 <body>
+	<br/><br/><br/>
 	<div class="container">
 		<!-- ===================message area, and timer ====================== -->
 		<div class="row" id="messageDiv">
-			<label id=titelLabel><font color='green'><h2></h2></font></label>
-			<br/>
-			<div class="col-sm-8 text-left">
-				<div id="messageLabel"></div>
+			<div class="col-sm-3 text-left"></div>
+			<div class="col-sm-7 text-center">
+				<table class="table">
+					<tr>
+						<td colspan="2">
+							<font color='green'><h2><label id=titelLabel>Adri</label></h2></font>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="messageLabel">Oefening baart kunst!</div>
+						</td>
+						<td>
+							<label id="timerLabel"></label>
+						</td>
+					</tr>
+				</table>	
 			</div>
-			<div class="col-sm-4 text-right">
-				<label id="timerLabel"></label>
-			</div>
-		</div>
+			<div class="col-sm-2 text-left"></div>
+		</div><br/><br/>
 		<!-- ===================active start====================== -->
-		<div class="row" id="activeDiv"></div>
+		<div class="row">
+			<div class="col-sm-3 text-left"></div>
+			<div class="col-sm-7 text-left">
+				<div id="activeDiv"></div>
+			</div>
+			<div class="col-sm-2 text-left"></div>
+		</div>
 		<!-- ===================inactive start====================== -->
 		<div class="invisible" id="inactiveDiv">
 			<!-- input user name -->
-			<div class="row" id="inputUsernameDiv">
-				<div class="col-sm-6">
-					<label>Voer eerst je naam in, sluit af met enter en kies
-						daarna een oefening:</label>
-				</div>
-				<div class="col-sm-6">
-					<label>Naam:</label> <input type="text" id="username"
-						onkeyup="inputUsername(event);" autocomplete="off" />
-				</div>
+			<div id="inputUsernameDiv">
+				<p>Voer eerst je naam in, sluit af met enter en kies daarna een
+					oefening:</p>
+				Naam:<input type="text" id="username"
+					onkeyup="inputUsername(event);" autocomplete="off" />
 			</div>
 			<!-- select the game and type, and start the game -->
-			<div class="row" id="selectGameAndStartDiv">
-				<div class="col-sm-4">
-					Kies oefening<br /> <select onchange="createLevel(value);"
-						id="testGame">
-					</select>
-				</div>
-				<div class="col-sm-4">
-					Kies niveau<br /> <select id="testLevel">
-					</select>
-				</div>
-				<div class="col-sm-4">
-					<button type="button" class="btn btn-success"
-						onclick="startTest();">Start</button>
-				</div>
+			<div id="selectGameAndStartDiv">
+				<table class="table">
+					<tr>
+						<th>Kies oefening</th>
+						<th>Kies niveau</th>
+					</tr>
+					<tr>
+						<td><select onchange="createLevel(value);" id="testGame" />
+						</td>
+						<td><select id="testLevel" /></td>
+					</tr>
+				</table>
+				<button type="button" class="btn btn-success" onclick="startTest();">Start</button>
 			</div>
 			<!-- question and answer div-->
-			<div id="questionAndAnswerDiv" class="row">
-				<div class="row">
-					<div id='questionDiv' class="col-sm-12 text-left"></div>
-				</div>
-				<div class="row">
-					<div id='answerDiv' class="col-sm-12 text-left"></div>
-				</div>
+			<div id="questionAndAnswerDiv">
+				<div id='questionDiv'></div>
+				<br />
+				<div id='answerDiv'></div>
 			</div>
 			<!-- show result div-->
-			<div id="showResultDiv" class="row">
-				<div class="col-sm-12 text-left">
-					<h3>Resultaat</h3>
-					<p id="resultMessage"></p>
-					<button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
-				</div>
+			<div id="showResultDiv">
+				<h3>Resultaat</h3>
+				<p id="resultMessage"></p>
+				<button type="button" class="btn btn-success" onclick="reportMe();">Afronden</button>
 			</div>
 			<!-- report me -->
-			<div id="reportDiv" class="row">
-				<div class="col-sm-12 text-left">[contact-form-7 id="127"
-					title="Formulier"]</div>
+			<div id="reportDiv">[contact-form-7 id="127" title="Formulier"]
 			</div>
 		</div>
 	</div>

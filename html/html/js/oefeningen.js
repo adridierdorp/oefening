@@ -12,6 +12,12 @@ var game = {
 	resultMessage : null
 }
 
+var gameLengths = {
+	wortels : 1,//default 10
+	ontbind : 1,//default 20
+	kwadraat : 1//default 20
+}
+
 // mathQuill
 var mathQuillEditor = {
 	MQ : MathQuill.getInterface(2),
@@ -168,8 +174,8 @@ function reportMe() {
 	showSelectGameAndStartDiv();
 }
 
-function checkAnswerAndMoveToNext(answer,question) {
-	var correct = window[game.gamePrefix + "CheckAnswer"](answer,question);
+function checkAnswerAndMoveToNext(answer, question) {
+	var correct = window[game.gamePrefix + "CheckAnswer"](answer, question);
 	if (correct) {
 		game.cursor++;
 		prepareQuestion();
