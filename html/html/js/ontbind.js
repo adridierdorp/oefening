@@ -74,12 +74,18 @@ function wwp_PreCheckAnswer() {
 }
 
 function wwp_CheckAnswer(latexAnswer, question) {
+	
 	var n1 = algebra.parse("x" + plusOrMinus(question.a) + question.a);
 	var n2 = algebra.parse("x" + plusOrMinus(question.b) + question.b);
 	var expr = n1.multiply(n2);
 	var questionExpr = n1.multiply(n2).simplify();
 
 	var exprStr = latexToAlgebra(latexAnswer);
+	if(question.a == question.b){
+		if(exprStr.toString().indexOf("^") == -1){
+			return false;
+		}
+	}
 	var answerExpr = new algebra.parse(exprStr);
 
 	var checkExpr = questionExpr.subtract(answerExpr.simplify()).simplify();

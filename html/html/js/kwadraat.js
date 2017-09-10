@@ -54,6 +54,7 @@ function kr_CreateQuestion(question){
 	var inputText ="<input type='text' id='answerCheck' autocomplete='off'/>";
 	$('#answerDiv').append(inputText);
 	$("#answerCheck").on('keyup', kr_PreCheckAnswer);
+	$("#answerCheck").focus();
 }
 
 function kr_PreCheckAnswer(e){
