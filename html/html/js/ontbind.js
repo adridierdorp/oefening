@@ -38,7 +38,6 @@ function wwp_CreateQuestions(level) {
 		}
 		getals[getals.length] = variables;
 	}
-	console.log(getals);
 	return getals;
 }
 

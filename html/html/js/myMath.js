@@ -114,7 +114,7 @@ function replaceAll(source, old, replace) {
 String.prototype.count = function(s1) {
     return (this.length - this.replace(new RegExp(s1, "g"), '').length) / s1.length;
 }
-  
+
 function plusOrMinus(a){
 	var operator;
 	if(a >= 0){
@@ -124,4 +124,26 @@ function plusOrMinus(a){
 		operator = "-";
 	}
 	return operator;
+}
+
+function displayNumberInExpression(isFirst, a){
+	if(a === 0){
+		return "";
+	}
+	var unit;
+	if(isFirst){
+		unit = a+"";
+	}
+	else{
+		if(a>0){
+			unit = "+"+a;
+		}
+		else{
+			unit = ""+a;
+		}
+	}
+	if(a == 1 || a == -1){
+		unit = replaceAll(unit, "1", "");
+	}	
+	return unit;
 }
