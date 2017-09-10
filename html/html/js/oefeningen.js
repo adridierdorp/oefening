@@ -82,7 +82,7 @@ function inputUsername(event) {
 	if (isEnterKey(event)) {
 		game.username = $("#username").val();
 		if (game.username && game.username.length > 2) {
-			showMessage("Welkom " + game.username + ", kies het niveau!");
+			showMessage("Welkom " + game.username + ", kies de oefening en het niveau!");
 			showSelectGameAndStartDiv();
 		} else {
 			showMessage("Vul een juiste naam in!");

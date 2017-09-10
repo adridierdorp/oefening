@@ -66,10 +66,9 @@ function wwp_PreCheckAnswer() {
 	var question = game.questions[game.cursor];
 	var notice;
 	if (checkAnswerAndMoveToNext(latexAnswer, question)) {
-		notice = "<font color='green'>Goed</font>, " + game.username
-				+ ", dit was juist.";
+		notice = "<font color='green'>Goed</font>, " + game.username;				
 	} else {
-		notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
+		notice = "<font color='red'>Jammer</font>, niet goed! Probeer het nog eens.";
 	}
 	showMessage(notice);
 }

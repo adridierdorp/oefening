@@ -63,10 +63,10 @@ function kr_PreCheckAnswer(e){
 		var question = game.questions[game.cursor];
 		var notice;
 		if(checkAnswerAndMoveToNext(answer,question)){
-			notice = "<font color='green'>Goed </font>, "+game.username+ " het klopt dat, "+ question + "<sup>2</sup>= "+answer;
+			notice = "<font color='green'>Goed</font>, "+game.username+ ", het klopt dat, "+ question + "<sup>2</sup>= "+answer;
 		}
 		else{
-			notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
+			notice = "<font color='red'>Jammer</font>, niet goed! Probeer het nog eens.";
 		}
 		showMessage(notice);
 	}
