@@ -13,9 +13,9 @@ var game = {
 }
 
 var gameLengths = {
-	wortels : 1,//default 10
-	ontbind : 1,//default 20
-	kwadraat : 1//default 20
+	wortels : 10,//default 10
+	ontbind : 20,//default 20
+	kwadraat : 20//default 20
 }
 
 // mathQuill
