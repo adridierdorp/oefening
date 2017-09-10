@@ -58,12 +58,12 @@ function wwp_CreateQuestion(question) {
 	var expr = n1.multiply(n2);
 	createLatexQuestion("questionDiv", expr);
 	// answer
-	game.mathEditorAnswer = initializeAnswerEditor('answerDiv',
+	mathQuillEditor.mathEditorAnswer = initializeAnswerEditor('answerDiv',
 			'mathEditorAnswer', wwp_PreCheckAnswer);
 }
 
 function wwp_PreCheckAnswer() {
-	var latexAnswer = game.mathEditorAnswer.getValue();
+	var latexAnswer = mathQuillEditor.mathEditorAnswer.getValue();
 	var question = game.questions[game.cursor];
 	var notice;
 	if (checkAnswerAndMoveToNext(latexAnswer, question)) {

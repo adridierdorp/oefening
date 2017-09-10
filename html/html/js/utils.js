@@ -40,6 +40,6 @@ function createQuestionLatex(divId) {
 		},
 		restrictMismatchedBrackets : true
 	};
-	var mathField = game.MQ.MathField(htmlElement, config);
+	var mathField = mathQuillEditor.MQ.MathField(htmlElement, config);
 	return mathField;
 }

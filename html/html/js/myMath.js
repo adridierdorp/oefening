@@ -114,7 +114,7 @@ function replaceAll(source, old, replace) {
 String.prototype.count = function(s1) {
     return (this.length - this.replace(new RegExp(s1, "g"), '').length) / s1.length;
 }
-
+  
 function plusOrMinus(a){
 	var operator;
 	if(a >= 0){

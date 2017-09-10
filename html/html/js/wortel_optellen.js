@@ -1,21 +1,5 @@
-
-
-function wortel_optellen_kijkna(){
-	//console.log("input",mathEditor.getValue());
-    $("#score").html(mathEditor.getValue());
-};
-
-function wortel_optellen_Initialize(id){
-	  mathEditor = new MathEditor(id);
-	  mathEditor.removeButtons(['integral']);
-	  mathEditor.removeButtons(['cube_root']);
-	  mathEditor.removeButtons(['greater_than']);
-	  mathEditor.removeButtons(['less_than']);
-	  mathEditor.removeButtons(['division']);
-	  mathEditor.removeButtons(['multiplication']);
-	  mathEditor.removeButtons(['root']);
-	  //mathEditor.setTemplate('floating-toolbar');
-	  return mathEditor;
+function wortel_optellen_GetGameName() {
+	return "WORTELS oefenen";
 }
 
 function wortel_optellen_CreateLevel() {
@@ -35,12 +19,63 @@ function wortel_optellen_CreateLevel() {
     return levels;
 }
 
-function wortel_optellen_GetGameName() {
-    return "Wortels_Optellen";
+function wortel_optellen_CreateQuestion(question) {
+	// question
+	$("#questionDiv").append("<br/>Herleid:<br/>");
+	$("#questionDiv").append("<div id='mathEditorQuestion'></div><br/>");
+	$("#questionDiv").append("<button id='resetQuestionButton'>Reset de vraag</button><br/>");
+	$('#resetQuestionButton').on('click',prepareQuestion);
+	//display the question
+	mathQuillEditor.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');
+	mathQuillEditor.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
+	// answer
+	mathQuillEditor.mathEditorAnswer = initializeAnswerEditor('answerDiv',
+			'mathEditorAnswer', wortel_optellen_PreCheckAnswer);
 }
 
-function wortel_optellen_CreateTitleLable(){
-	$("#titelLabel").html("<font color='green'><h2>Wortels Optellen</h2><br /></font>");
+function wortel_optellen_PreCheckAnswer(){
+	var latexAnswer = mathQuillEditor.mathEditorAnswer.getValue();
+	var question = game.questions[game.cursor];
+	var notice;
+	if (checkAnswerAndMoveToNext(latexAnswer, question)) {
+		notice = "<font color='green'>Goed </font>, " + game.username
+				+ " het klopt dat.";
+	} else {
+		notice = "<font color='red'>Jammer </font>, niet goed! Probeer het nog eens.";
+	}
+	showMessage(notice);
+}
+
+function wortel_optellen_CreateLatex(question){
+	var questionLatex = wortel_optellen_CreateUnit(true,question.a,Math.pow(question.x1, 2));
+    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.b,Math.pow(question.x1, 2));
+    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.c,question.x2);
+    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.d,question.x2);
+    if(questionLatex.startsWith('+')){
+    	questionLatex = questionLatex.substring(1,questionLatex.length);
+    }
+    return questionLatex;
+}
+
+function wortel_optellen_CreateUnit(isFirst, a, x){
+	if(a === 0 || x === 0){
+		return "";
+	}
+	var unit = displayNumberInExpression(isFirst, a)+"\\sqrt{"+x+"}";
+	return unit;
+}
+
+function wortel_optellen_CreateQuestions(level) {
+    var length = 10;
+    var quiestions = [];
+    for (var i = 0; i < length; i++) {
+    	var question = wortel_optellen_createOneQuestion(level);
+    	while (wortel_optellen_hasIt(quiestions, question)){
+    		question = wortel_optellen_createOneQuestion(level);
+    	}
+    	quiestions[i] = question;
+    }
+    return quiestions;
 }
 
 /*
@@ -49,7 +84,7 @@ function wortel_optellen_CreateTitleLable(){
  * x1: 1-20
  * x1: 2-10
  */
-function wortel_optellen_createQuestion(level){
+function wortel_optellen_createOneQuestion(level){
 	var question ={
 			a: 0,
 			b: 0,
@@ -91,67 +126,6 @@ function wortel_optellen_createQuestion(level){
 	return question;
 }
 
-function wortel_optellen_CreateQuestion(question) {
-	if(!game.mathEditorQuestion){
-		$("#question").append("<br/>Herleid:<br/>");
-		$("#question").append("<div id='mathEditorQuestion'></div><br/>");
-		$("#question").append("<button id='resetQuestionButton'>Reset de vraag</button><br/>");
-		$('#question').on('click','#resetQuestionButton', prepareQuestion);
-		
-		//display the question
-		game.mathEditorQuestion = createQuestionLatex('mathEditorQuestion');	
-		
-		//add editor
-		$("#mathEditorAnswerDiv").append("<div id='mathEditorAnswer'></div><br/>");
-		game.mathEditorAnswer = wortel_optellen_Initialize('mathEditorAnswer');
-		//add button to check
-		$("#mathEditorAnswerDiv").append("<button id='checkAnswerButton'>Enter</button><br/>");
-		$('#checkAnswerButton').on('click', wortel_optellen_PreCheckAnswer);
-	}
-	game.mathEditorQuestion.latex(wortel_optellen_CreateLatex(question));
-	//hide the input
-	showInput("answer",false);	
-}
-
-function wortel_optellen_PreCheckAnswer(){
-	var answerText = game.mathEditorAnswer.getValue();
-	//answerText = replaceAll(answerText, '\\', '\\\\');
-	$("#answer").val(answerText);
-	checkAnswer({keyCode:13});
-}
-
-function wortel_optellen_CreateLatex(question){
-	var questionLatex = wortel_optellen_CreateUnit(true,question.a,Math.pow(question.x1, 2));
-    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.b,Math.pow(question.x1, 2));
-    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.c,question.x2);
-    questionLatex = questionLatex + wortel_optellen_CreateUnit(false,question.d,question.x2);
-    if(questionLatex.startsWith('+')){
-    	questionLatex = questionLatex.substring(1,questionLatex.length);
-    }
-    return questionLatex;
-}
-
-function wortel_optellen_CreateUnit(isFirst, a, x){
-	if(a === 0 || x === 0){
-		return "";
-	}
-	var unit = displayNumberInExpression(isFirst, a)+"\\sqrt{"+x+"}";
-	return unit;
-}
-
-function wortel_optellen_CreateQuestions(level) {
-    var length = 10;
-    var quiestions = [];
-    for (var i = 0; i < length; i++) {
-    	var question = wortel_optellen_createQuestion(level);
-    	while (wortel_optellen_hasIt(quiestions, question)){
-    		question = wortel_optellen_createQuestion(level);
-    	}
-    	quiestions[i] = question;
-    }
-    return quiestions;
-}
-
 function wortel_optellen_hasIt(quiestions, test) {
 	//console.log(quiestions,test);
     $.each(quiestions, function(key, value) {
@@ -163,16 +137,6 @@ function wortel_optellen_hasIt(quiestions, test) {
     return false;
 }
 
-function wortel_optellen_CreateNotice(answer, question) {
-    var notice;
-    if (wortel_optellen_CheckAnswer(answer, question)) {
-        notice = "<font color='green'>Goed </font>"+", "+game.username;
-        game.mathEditorAnswer.setLatex('');
-    } else {
-        notice = "<font color='red'>Jammer </font>, Herleid opnieuw of verder.";
-    }
-    return notice;
-}
 /*
  * the answer should be: (a+b)*x1+(c+d)\\sqrt{x2}
  * so 2 situations:
@@ -247,11 +211,4 @@ function wortel_optellen_calculate(game) {
         F = 1;
     }
     return F;
-}
-
-
-function wortel_optellen_stop() {
-    $("#mathEditorAnswerDiv").empty();
-    $("#question").empty();
-    showInput("answer",true);
 }
