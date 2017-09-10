@@ -124,7 +124,9 @@ function startTest() {
 }
 
 function startTimer() {
-	$("#timerLabel").html("Seconden:" + game.seconds);
+	var content ="[Nr:"+ (game.cursor+1) + "/"+ game.questions.length +"]";
+	content = content +" Seconden: " + game.seconds;
+	$("#timerLabel").html(content);
 	game.seconds++;
 	if (game.startedFlag) {
 		setTimeout(startTimer, 1000);
