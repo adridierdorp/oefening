@@ -13,9 +13,11 @@ var game = {
 }
 
 var gameLengths = {
-	wortels : 10,//default 10
-	ontbind : 20,//default 20
-	kwadraat : 20//default 20
+	wortels : 10,// default 10
+	wortel : 20,// default 20
+	ontbind : 20,// default 20
+	kwadraat : 20
+// default 20
 }
 
 // mathQuill
@@ -47,6 +49,9 @@ function showSelectGameAndStartDiv() {
 	var games = [ {
 		value : 'kr_',
 		name : 'Kwadraat'
+	}, {
+		value : 'wrt_',
+		name : 'Wortel'
 	}, {
 		value : 'wwp_',
 		name : 'Ontbind'
@@ -82,7 +87,8 @@ function inputUsername(event) {
 	if (isEnterKey(event)) {
 		game.username = $("#username").val();
 		if (game.username && game.username.length > 2) {
-			showMessage("Welkom " + game.username + ", kies de oefening en het niveau!");
+			showMessage("Welkom " + game.username
+					+ ", kies de oefening en het niveau!");
 			showSelectGameAndStartDiv();
 		} else {
 			showMessage("Vul een juiste naam in!");
@@ -124,8 +130,9 @@ function startTest() {
 }
 
 function startTimer() {
-	var content ="[Nr:"+ (game.cursor+1) + "/"+ game.questions.length +"]";
-	content = content +" Seconden: " + game.seconds;
+	var content = "[Nr:" + (game.cursor + 1) + "/" + game.questions.length
+			+ "]";
+	content = content + " Seconden: " + game.seconds;
 	$("#timerLabel").html(content);
 	game.seconds++;
 	if (game.startedFlag) {
