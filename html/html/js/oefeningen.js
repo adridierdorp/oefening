@@ -153,11 +153,33 @@ function prepareQuestion() {
 function showReport() {
 	game.startedFlag = false;
 	game.score = window[game.gamePrefix + "calculate"](game);
-	game.resultMessage = window[game.gamePrefix + "CreateResultMessage"](game);
+	game.resultMessage = createResultMessage(game);
 	$("#resultMessage").html(game.resultMessage);
 	showMessage("Klaar! Druk op Afronden om door te gaan.");
 
 	activeDiv('showResultDiv');
+}
+
+function createResultMessage(game) {
+	var text = "Resultaten voor " + game.username + ".<br />";
+	text = text + "Niveau <font color='green'>" + game.level + "</font>.<br />";
+	text = text + "Aantal seconden: <font color='red'>" + game.seconds
+			+ "</font>.<br />";
+	text = text + "Aantal fouten: <font color='red'>" + game.errors
+			+ "</font>.<br />";
+	text = text + "Score: <font color='green'>"
+			+ window[game.gamePrefix + "calculate"](game) + "</font><br />";
+	return text;
+}
+
+function createResultMessageWithoutFont(game) {
+	var text = "Resultaten voor " + game.username + ".<br />";
+	text = text + "Niveau " + game.level + ".<br />";
+	text = text + "Aantal seconden: " + game.seconds + ".<br />";
+	text = text + "Aantal fouten: " + game.errors + ".<br />";
+	text = text + "Score: " + window[game.gamePrefix + "calculate"](game)
+			+ "<br />";
+	return text;
 }
 
 function reportMe() {
@@ -170,10 +192,10 @@ function reportMe() {
 	youremail.val(replaceAll(gameName, " ", "") + "@gmail.com");
 	//
 	var yoursubject = $("input[name='your-subject']");
-	yoursubject.val(game.score);
+	yoursubject.val("score: " + game.score);
 	//
 	var yourmessage = $("textarea[name='your-message']");
-	yourmessage.val(game.email);
+	yourmessage.val(createResultMessageWithoutFont(game));
 	//
 	var yoursubmit = $("input[class='wpcf7-form-control wpcf7-submit']");
 	yoursubmit.click();

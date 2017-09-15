@@ -183,15 +183,6 @@ function wortel_optellen_CheckAnswer(answer, question) {
 	return Math.round(inputAnswer*10000) ==  Math.round(correctAnswer*10000);
 }
 
-function wortel_optellen_CreateResultMessage(game) {
-    var text = "Resultaten voor " + game.username + ".<br />";
-    text = text + "Niveau <font color='green'>" + game.level + "</font>.<br />";
-    text = text + "Aantal seconden: <font color='red'>" + game.seconds + "</font>.<br />";
-    text = text + "Aantal fouten: <font color='red'>" + game.errors + "</font>.<br />";
-    text = text + "Score: <font color='green'>" + wortel_optellen_calculate(game) + "</font><br />";
-    return text;
-}
-
 function wortel_optellen_calculate(game) {
     var F = 0;
     if (game.level == 1) {

@@ -77,15 +77,6 @@ function kr_CheckAnswer(answer, question){
 	return answer == question*question;
 }
 
-function kr_CreateResultMessage(game){
-	var text = "Resultaten voor "+game.username+".<br />";
-	text = text + "Niveau <font color='green'>" + game.level +"</font>.<br />";
-	text = text + "Aantal seconden: <font color='red'>" + game.seconds + "</font>.<br />";
-	text = text + "Aantal fouten: <font color='red'>" + game.errors + "</font>.<br />";
-	text = text + "Score: <font color='green'>" + kr_calculate(game) +"</font><br />";
-	return text;
-}
-
 function kr_calculate(game){
 	var F=0;
 	if(game.level == 1){
