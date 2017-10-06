@@ -1,28 +1,27 @@
-function isEnterKey(event){
+function isEnterKey(event) {
 	return event.keyCode == 13;
 }
 
 function showDiv(divId, show) {
-    var display = $("#" + divId).attr("class");
-    if (!show) {
-        if (display.indexOf("invisible") < 0) {
-            display = display + " invisible";
-            display = display.replace("  ", " ");
-        }
-    } else {
-        if (display.indexOf("invisible") >= 0) {
-            display = display.replace("invisible", "");
-        }
-    }
-    $("#" + divId).attr("class", display);
+	var display = $("#" + divId).attr("class");
+	if (!show) {
+		if (display.indexOf("invisible") < 0) {
+			display = display + " invisible";
+			display = display.replace("  ", " ");
+		}
+	} else {
+		if (display.indexOf("invisible") >= 0) {
+			display = display.replace("invisible", "");
+		}
+	}
+	$("#" + divId).attr("class", display);
 }
 
-function showInput(inputId, show){
-	if(show){
+function showInput(inputId, show) {
+	if (show) {
 		$("#" + inputId).show();
-	}
-	else{
-		 $("#" + inputId).hide();
+	} else {
+		$("#" + inputId).hide();
 	}
 }
 
@@ -42,4 +41,18 @@ function createQuestionLatex(divId) {
 	};
 	var mathField = mathQuillEditor.MQ.MathField(htmlElement, config);
 	return mathField;
+}
+
+/**
+ * alignDivs("abc", right);
+ * @param elementId
+ * @param position
+ * @returns
+ */
+function alignDivs(divIdA, divIdB,  position) {
+	$("#" + divIdA).position({
+		of : $("#" + divIdB),
+		my : position,
+		at : position
+	});
 }

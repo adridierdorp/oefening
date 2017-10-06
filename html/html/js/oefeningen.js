@@ -16,7 +16,8 @@ var gameLengths = {
 	wortels : 10,// default 10
 	wortel : 20,// default 20
 	ontbind : 20,// default 20
-	kwadraat : 20
+	kwadraat : 20,//default 20
+	wortelkeer: 10 //default 10
 // default 20
 }
 
@@ -58,6 +59,9 @@ function showSelectGameAndStartDiv() {
 	}, {
 		value : 'wortel_optellen_',
 		name : 'Wortels Optellen'
+	}, {
+		value : 'wortel_verm_',
+		name : 'Wortels Vermenigvuldigen'			
 	} ];
 	$("#testGame").empty();
 	$.each(games, function(key, value) {
