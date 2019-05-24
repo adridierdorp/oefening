@@ -90,14 +90,19 @@ function getAllDivs() {
 function inputUsername(event) {
 	if (isEnterKey(event)) {
 		game.username = $("#username").val();
-		if (game.username && game.username.length > 2) {
+		if (validateEmail(game.username)) {
 			showMessage("Welkom " + game.username
 					+ ", kies de oefening en het niveau!");
 			showSelectGameAndStartDiv();
 		} else {
-			showMessage("Vul een juiste naam in!");
+			showMessage("Vul een juiste e-mail in!");
 		}
 	}
+}
+
+function validateEmail(email) {
+	  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	  return re.test(email);
 }
 
 function createLevel(gameValue) {
