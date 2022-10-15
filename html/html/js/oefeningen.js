@@ -206,7 +206,7 @@ function reportMe() {
 	var yourmessage = $("textarea[name='your-message']");
 	yourmessage.val(createResultMessageWithoutFont(game));
 	//
-	var yoursubmit = $("input[class='wpcf7-form-control wpcf7-submit']");
+	var yoursubmit = $("input[class='wpcf7-form-control has-spinner wpcf7-submit']");
 	yoursubmit.click();
 
 	showMessage("Kies een nieuwe oefening.");
