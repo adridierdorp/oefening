@@ -209,9 +209,13 @@ function reportMe() {
 	var yoursubmit = $("input[class='wpcf7-form-control has-spinner wpcf7-submit']");
 	yoursubmit.click();
 
-	showMessage("Kies een nieuwe oefening.");
+  setTimeout(() => {
+  showMessage("Kies een nieuwe oefening.");
+  showSelectGameAndStartDiv(); },
+   2000);
+	//showMessage("Kies een nieuwe oefening.");
 	//
-	showSelectGameAndStartDiv();
+	//showSelectGameAndStartDiv();
 }
 
 function checkAnswerAndMoveToNext(answer, question) {
